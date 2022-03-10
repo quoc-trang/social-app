@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { Grid } from '@mui/material'
+import Navbar from './components/Navbar'
+import Leftbar from './components/Leftbar'
+import Feed from './components/Feed'
+import Rightbar from './components/Rightbar'
+import { makeStyles } from '@mui/styles'
+import CreatePost from './components/CreatePost'
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Montserrat'].join(','),
+  },
+})
 
-function App() {
+const useStyles = makeStyles((theme) => ({
+  right: {
+    [theme.breakpoints.down('sm')]: {
+      dipslay: 'none',
+    },
+  },
+}))
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <Navbar />
+      <Grid container>
+        <Grid item lg={2} xs={2}>
+          <Leftbar />
+        </Grid>
+        <Grid item lg={7} xs={10}>
+          <Feed />
+        </Grid>
+        <Grid item lg={3}>
+          <Rightbar />
+        </Grid>
+      </Grid>
+      <CreatePost />
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
